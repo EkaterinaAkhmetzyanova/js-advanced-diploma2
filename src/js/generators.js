@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-plusplus */
-import { escapeHTML } from 'core-js/core/string';
-import Team from './Team';
 
 /**
  * Generates random characters
@@ -14,16 +12,16 @@ import Team from './Team';
 export function* characterGenerator(allowedTypes, maxLevel) {
   // TODO: write logic here
   const charType = Math.floor(Math.random() * allowedTypes.length);
-  const charLevel = Math.floor(1 + Math.random() * maxLevel);
+  const charLevel = Math.floor(1 + (Math.random() * maxLevel));
   yield new allowedTypes[charType](charLevel);
 }
 
 export function generateTeam(allowedTypes, maxLevel, characterCount) {
   // TODO: write logic here
-  const char = characterGenerator(allowedTypes, maxLevel);
-  const team = new Team();
+  const team = [];
   for (let i = 0; i < characterCount; i++) {
-    team.add(char.next().value);
+    const char = characterGenerator(allowedTypes, maxLevel);
+    team.push(char.next().value);
   }
   return team;
 }
